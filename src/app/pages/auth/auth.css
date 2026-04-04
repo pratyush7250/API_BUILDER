@@ -1,0 +1,152 @@
+/* Base Container */
+.auth-container {
+  display: flex;
+  min-height: 100vh;
+  width: 100%;
+  background: #ffffff;
+  overflow-x: hidden;
+}
+
+/* Left Side Visuals */
+.visual-section {
+  flex: 1.2;
+  background-color: #f9fafb;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo-container {
+  position: relative;
+  width: 200px;
+  height: 200px;
+}
+
+.main-circle {
+  width: 180px;
+  height: 180px;
+  background: #7f56d9;
+  border-radius: 50%;
+  clip-path: inset(0 0 50% 0);
+}
+
+.reflection-blur {
+  position: absolute;
+  top: 90px;
+  width: 180px;
+  height: 100px;
+  background: #7f56d9;
+  filter: blur(40px);
+  opacity: 0.35;
+}
+
+/* Right Side Form */
+.form-section {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px;
+  background: #ffffff;
+}
+
+.inner-form-content {
+  width: 100%;
+  max-width: 360px;
+}
+
+.title {
+  font-size: 28px;
+  font-weight: 700;
+  color: #101828;
+  margin-bottom: 8px;
+}
+
+.subtitle {
+  color: #667085;
+  margin-bottom: 24px;
+  font-size: 15px;
+}
+
+.form-utilities {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.link-text {
+  color: #6941c6;
+  font-weight: 600;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+.main-btn {
+  background-color: #7f56d9 !important;
+  border: none !important;
+  height: 44px;
+  font-weight: 600;
+  border-radius: 8px;
+  color: white !important;
+}
+
+.main-btn:disabled {
+  background-color: #b599eb !important;
+  cursor: not-allowed;
+}
+
+.google-btn {
+  height: 44px;
+  margin-top: 12px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  width: 100%;
+}
+
+.toggle-footer {
+  text-align: center;
+  margin-top: 24px;
+  color: #667085;
+}
+
+.ghost-link {
+  background: none;
+  border: none;
+  color: #6941c6;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0 4px;
+}
+
+/* RESPONSIVE DESIGN */
+/* On screens 992px or smaller, hide the visual section and center the form */
+@media (max-width: 992px) {
+  .visual-section {
+    display: none; /* Hide the purple graphic side */
+  }
+
+  .form-section {
+    flex: 1;
+    width: 100%;
+    padding: 24px;
+  }
+
+  .inner-form-content {
+    max-width: 400px; /* Slightly wider on mobile for better usability */
+  }
+}
+
+/* Small adjustments for very small phones */
+@media (max-width: 480px) {
+  .title {
+    font-size: 24px;
+  }
+  
+  .form-section {
+    padding: 20px;
+  }
+}

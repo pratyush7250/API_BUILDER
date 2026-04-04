@@ -1,11 +1,23 @@
-import { Component, signal } from '@angular/core';
-import { RouterModule } from '@angular/router';
-import { FlowEditor } from './pages/flow-editor/flow-editor';
+import { Component } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { RouterOutlet } from '@angular/router';
+import { Sidebar } from './components/sidebar/sidebar'; // Adjust paths
+import { Navbar } from './components/navbar/navbar';
+
 @Component({
   selector: 'app-root',
-  imports: [RouterModule, FlowEditor],
+  standalone: true,
+  imports: [CommonModule, RouterOutlet, Sidebar, Navbar],
   templateUrl: './app.html',
-  styleUrl: './app.css'
+  styleUrls: ['./app.css']
 })
 export class App {
+  isCollapsed = false;
+
+  toggleSidebar(collapsed: boolean) {
+    this.isCollapsed = collapsed;
+  }
+
+
+
 }

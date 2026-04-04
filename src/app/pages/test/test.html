@@ -1,0 +1,223 @@
+<div class="api-container">
+  <aside class="sidebar">
+    <div class="sidebar-header">
+      <span class="title">Collections</span>
+      <div class="header-actions">
+        <button class="icon-btn" nz-button nzType="text" (click)="addCollection()"><span nz-icon
+            nzType="plus"></span></button>
+        <button class="icon-btn" nz-button nzType="text"><span nz-icon nzType="reload"></span></button>
+      </div>
+    </div>
+
+    <div class="search-box">
+      <nz-input-group [nzPrefix]="prefixIcon">
+        <input type="text" nz-input placeholder="Search Collections" />
+      </nz-input-group>
+      <ng-template #prefixIcon><span nz-icon nzType="search"></span></ng-template>
+    </div>
+
+    <div class="collection-list">
+      @for (col of collections; track col.id) {
+      <div class="collection-item">
+        <div class="collection-row" (click)="col.isExpanded = !col.isExpanded">
+          <div class="left-section">
+            <span nz-icon [nzType]="col.isExpanded ? 'down' : 'right'" class="arrow"></span>
+            @if (col.isEditing) {
+            <input nz-input nzSize="small" [(ngModel)]="col.name" (blur)="col.isEditing = false"
+              (keyup.enter)="col.isEditing = false" autofocus (click)="$event.stopPropagation()" />
+            } @else {
+            <span class="folder-name">{{ col.name }}</span>
+            }
+          </div>
+
+          <div class="right-actions">
+            <span nz-icon nzType="plus" class="action-icon" (click)="addRequest(col, $event)" nz-tooltip
+              nzTooltipTitle="Add Request"></span>
+            <span nz-icon nzType="more" class="action-icon" nz-dropdown [nzDropdownMenu]="colMenu"
+              [nzPlacement]="'bottomRight'" (click)="$event.stopPropagation()"></span>
+            <nz-dropdown-menu #colMenu="nzDropdownMenu">
+              <ul nz-menu>
+                <li nz-menu-item (click)="col.isEditing = true">Rename</li>
+                <li nz-menu-item (click)="addRequest(col)">Create Request</li>
+                <li nz-menu-divider></li>
+                <li nz-menu-item nzDanger (click)="deleteCollection(col.id)">Delete</li>
+              </ul>
+            </nz-dropdown-menu>
+          </div>
+        </div>
+
+        @if (col.isExpanded) {
+        <div class="request-list">
+          @for (req of col.requests; track req.id) {
+          <div class="request-item" [class.active]="selectedRequest?.id === req.id" (click)="selectRequest(col, req)">
+            <div class="req-info">
+              <span class="method" [ngClass]="'method-' + req.method.toLowerCase()">{{ req.method }}</span>
+              @if (req.isEditing) {
+              <input nz-input nzSize="small" [(ngModel)]="req.name" (blur)="req.isEditing = false"
+                (keyup.enter)="req.isEditing = false" autofocus (click)="$event.stopPropagation()" />
+              } @else {
+              <span class="req-name">{{ req.name }}</span>
+              }
+            </div>
+            <span nz-icon nzType="edit" class="edit-req-icon" nz-dropdown [nzDropdownMenu]="reqMenu"
+              (click)="$event.stopPropagation()"></span>
+            <nz-dropdown-menu #reqMenu="nzDropdownMenu">
+              <ul nz-menu>
+                <li nz-menu-item (click)="req.isEditing = true">Rename</li>
+                <li nz-menu-item nzDanger (click)="deleteRequest(col, req.id)">Delete</li>
+              </ul>
+            </nz-dropdown-menu>
+          </div>
+          } @empty {
+          <div class="empty-msg">No requests</div>
+          }
+        </div>
+        }
+      </div>
+      }
+    </div>
+  </aside>
+
+  <nz-splitter nzLayout="vertical">
+    <nz-splitter-panel>
+
+      <main class="main-content">
+        <header class="main-header">
+          <div class="breadcrumb">
+            {{ selectedCollection?.name || 'Collection' }} / <span class="active-req">{{ selectedRequest?.name || 'New
+              Request' }}</span>
+          </div>
+          <button nz-button nzType="default" class="save-btn"><span nz-icon nzType="save"></span> Save</button>
+        </header>
+
+        <div class="url-section">
+          <nz-input-group nzSearch [nzAddOnBefore]="methodSelect" [nzAddOnAfter]="sendBtn">
+            <input type="text" class="request-input" nz-input placeholder="http://" />
+          </nz-input-group>
+          <ng-template #methodSelect>
+            <nz-select [ngModel]="selectedRequest?.method || 'GET'" style="width: 100px;">
+              <nz-option nzLabel="GET" nzValue="GET"></nz-option>
+              <nz-option nzLabel="POST" nzValue="POST"></nz-option>
+              <nz-option nzLabel="PUT" nzValue="PUT"></nz-option>
+              <nz-option nzLabel="DELETE" nzValue="DELETE"></nz-option>
+            </nz-select>
+          </ng-template>
+          <ng-template #sendBtn>
+            <button nz-button nzType="primary" class="send-btn-real">Send</button>
+          </ng-template>
+        </div>
+
+        <nz-tabs nzType="line">
+          <nz-tab nzTitle="Params">
+            <div class="params-table-container">
+              <h4 class="section-title">Query Params</h4>
+              <nz-table #paramsTable [nzData]="queryParams" [nzShowPagination]="false" nzSize="small" nzBordered>
+                <thead>
+                  <tr>
+                    <th nzWidth="40px" nzShowCheckbox></th>
+                    <th>Key</th>
+                    <th>Value</th>
+                    <th nzWidth="40px"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @for (row of queryParams; track row) {
+                  <tr>
+                    <td nzShowCheckbox></td>
+                    <td><input nz-input placeholder="Key" class="table-input" /></td>
+                    <td><input nz-input placeholder="Value" class="table-input" /></td>
+                    <td class="text-center"><span nz-icon nzType="delete" class="delete-row"></span></td>
+                  </tr>
+                  }
+                </tbody>
+              </nz-table>
+            </div>
+          </nz-tab>
+          <nz-tab nzTitle="Body">
+            <div class="tab-content-container">
+              <div class="radio-options">
+                <nz-radio-group [(ngModel)]="bodyType">
+                  <label nz-radio nzValue="none">None</label>
+                  <label nz-radio nzValue="json">JSON</label>
+                  <label nz-radio nzValue="form">Form (url-encoded)</label>
+                  <label nz-radio nzValue="xml">XML</label>
+                  <label nz-radio nzValue="custom">Custom</label>
+                </nz-radio-group>
+                <span nz-icon nzType="copy" class="copy-icon"></span>
+              </div>
+
+              <div class="editor-container">
+                <textarea nz-input [(ngModel)]="bodyRawContent" [nzAutosize]="{ minRows: 10, maxRows: 20 }"
+                  class="raw-editor"></textarea>
+              </div>
+            </div>
+          </nz-tab>
+          <nz-tab nzTitle="Auth">
+            <div class="tab-content-container">
+              <div class="radio-options">
+                <nz-radio-group [(ngModel)]="authType">
+                  <label nz-radio nzValue="none">None</label>
+                  <label nz-radio nzValue="bearer">Bearer Token</label>
+                  <label nz-radio nzValue="basic">Basic Auth</label>
+                  <label nz-radio nzValue="custom">Custom</label>
+                </nz-radio-group>
+              </div>
+
+              <div class="auth-form">
+                <div class="auth-row">
+                  <label class="auth-label">Token</label>
+                  <input nz-input [(ngModel)]="bearerToken" placeholder="Token" class="auth-input" />
+                </div>
+                <p class="auth-info">
+                  The authorization header will be automatically generated when you send the request.
+                  <a href="#">Read more about HTTP Authentication.</a>
+                </p>
+              </div>
+            </div>
+          </nz-tab>
+          <nz-tab nzTitle="Headers">
+            <div class="params-table-container">
+              <h4 class="section-title">Headers</h4>
+              <nz-table #paramsTable [nzData]="queryParams" [nzShowPagination]="false" nzSize="small" nzBordered>
+                <thead>
+                  <tr>
+                    <th nzWidth="40px" nzShowCheckbox></th>
+                    <th>Key</th>
+                    <th>Value</th>
+                    <th nzWidth="40px"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @for (row of queryParams; track row) {
+                  <tr>
+                    <td nzShowCheckbox></td>
+                    <td><input nz-input placeholder="Key" class="table-input" /></td>
+                    <td><input nz-input placeholder="Value" class="table-input" /></td>
+                  </tr>
+                  }
+                </tbody>
+              </nz-table>
+            </div>
+          </nz-tab>
+        </nz-tabs>
+      </main>
+    </nz-splitter-panel>
+    <nz-splitter-panel class="logs-panel">
+      <div class="log-wrapper">
+        <div class="log-header">
+          Log Response
+        </div>
+
+        <div class="log-container">
+         Response from api will  be shown here
+        </div>
+      </div>
+
+
+    </nz-splitter-panel>
+  </nz-splitter>
+
+
+
+
+</div>

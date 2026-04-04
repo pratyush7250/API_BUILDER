@@ -1,0 +1,26 @@
+<div class="database-container">
+  <div class="sidebar">
+    <div class="sidebar-header">
+      <span class="title">Tables</span>
+      <div class="header-actions">
+        <button class="icon-btn" nz-button nzType="text" (click)="addTable()"><span nz-icon
+            nzType="plus"></span></button>
+        <button class="icon-btn" nz-button nzType="text"><span nz-icon nzType="reload"></span></button>
+      </div>
+    </div>
+    <nz-divider />
+    <ul class="table-list">
+      @for (tableName of tables; track tableName) {
+      <li [class.active]="selectedTable === tableName" (click)="selectTable(tableName)">
+        {{ tableName }}
+      </li>
+      }
+    </ul>
+  </div>
+
+  <div class="main-content">
+    <div class="table-data">
+      <app-dynamic-table [tableName]="selectedTable"></app-dynamic-table>
+    </div>
+  </div>
+</div>

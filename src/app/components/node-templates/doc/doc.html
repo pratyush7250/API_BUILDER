@@ -1,0 +1,27 @@
+<div class="doc-container">
+
+  <!-- Header -->
+  <div class="doc-header">
+    <span class="title">Documentation Editor</span>
+
+    <div class="actions">
+      <button (click)="saveContent()">Save</button>
+      <button (click)="clearContent()">Clear</button>
+    </div>
+  </div>
+
+  <!-- Editor -->
+  <div class="quill-container">
+    <quill-editor
+      [(ngModel)]="content"
+      [modules]="quillModules"
+      placeholder="Start writing your documentation...">
+    </quill-editor>
+  </div>
+
+  <!-- Footer -->
+  <div class="doc-footer">
+    <span>{{ getCharCount() }} characters</span>
+  </div>
+
+</div>

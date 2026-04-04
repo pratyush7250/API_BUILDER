@@ -1,0 +1,138 @@
+<div class="container">
+  <div class="table-header">
+    <h2 class="table-title">Table : {{tableName}}</h2>
+    <button nz-button nzType="primary" (click)="showModal()">Add Column</button>
+  </div>
+
+  <nz-table #basicTable [nzData]="listOfData" nzBordered>
+    <thead>
+      <tr>
+        @for (col of columns; track col.schema) {
+        <th>
+          <div style="display: flex; justify-content: space-between; align-items: center;">
+            <span>{{ col.name }}</span>
+            @if (col.schema !== 'id') {
+              <span nz-icon nzType="more" nz-popover [nzPopoverContent]="actionMenu" nzPopoverPlacement="bottomRight" style="cursor: pointer;"></span>
+            }
+            <ng-template #actionMenu>
+              <div style="display: flex; flex-direction: column;">
+                <button nz-button nzType="text" (click)="showModal(col)"><span nz-icon nzType="edit"></span> Edit</button>
+                <button nz-button nzType="text" nzDanger (click)="confirmDelete(col.schema)"><span nz-icon nzType="delete"></span> Delete</button>
+              </div>
+            </ng-template>
+          </div>
+        </th>
+        }
+      </tr>
+    </thead>
+    <tbody>
+      @for (data of basicTable.data; track data._id) {
+      <tr>
+        @for (col of columns; track col.schema) {
+        <td>
+          @switch (col.type) {
+            @case ('Image') { 
+                @if (data[col.schema]) { <img nz-image width="35px" height="35px" [nzSrc]="data[col.schema]" style="border-radius: 4px; object-fit: cover;" /> }
+                @else { <span style="color: #ccc;">No Image</span> }
+            }
+            @case ('Boolean') { <label nz-checkbox [nzChecked]="data[col.schema]" nzDisabled></label> }
+            @default { {{ data[col.schema] }} }
+          }
+        </td>
+        }
+      </tr>
+      }
+    </tbody>
+  </nz-table>
+ <div class="pegination">
+   <nz-pagination [nzPageIndex]="1" [nzTotal]="50" />
+ </div>
+</div>
+
+<nz-modal [(nzVisible)]="isVisible" [nzTitle]="isEditMode ? 'Edit Column' : 'Add New Column'" (nzOnCancel)="handleCancel()" (nzOnOk)="saveColumn()">
+  <ng-container *nzModalContent>
+    <form nz-form [formGroup]="validateForm" nzLayout="vertical">
+      
+      <div nz-row [nzGutter]="16">
+        <div nz-col nzSpan="12">
+          <nz-form-item>
+            <nz-form-label nzRequired>Column Name</nz-form-label>
+            <nz-form-control><input nz-input formControlName="columnName" placeholder="e.g. User Age" /></nz-form-control>
+          </nz-form-item>
+        </div>
+        <div nz-col nzSpan="12">
+          <nz-form-item>
+            <nz-form-label nzRequired>Schema Name</nz-form-label>
+            <nz-form-control><input nz-input formControlName="schemaName" /></nz-form-control>
+          </nz-form-item>
+        </div>
+      </div>
+
+      <nz-form-item>
+        <nz-form-label nzRequired>Data Type</nz-form-label>
+        <nz-form-control>
+          <nz-select formControlName="dataType">
+            <nz-option nzValue="String" nzLabel="String"></nz-option>
+            <nz-option nzValue="Number" nzLabel="Number"></nz-option>
+            <nz-option nzValue="Boolean" nzLabel="Boolean"></nz-option>
+            <nz-option nzValue="Decimal" nzLabel="Decimal"></nz-option>
+            <nz-option nzValue="Image" nzLabel="Image"></nz-option>
+          </nz-select>
+        </nz-form-control>
+      </nz-form-item>
+
+      <nz-divider nzText="Validation & Constraints" nzOrientation="left"></nz-divider>
+
+      <nz-form-item>
+        <label nz-checkbox formControlName="isRequired">The column is required</label>
+      </nz-form-item>
+      
+      @if (validateForm.get('dataType')?.value === 'String' || validateForm.get('dataType')?.value === 'Decimal' || validateForm.get('dataType')?.value === 'Number') {
+        <div nz-row [nzGutter]="16">
+          <div nz-col nzSpan="12">
+            <nz-form-item>
+              <nz-form-label>Min (Len/Val)</nz-form-label>
+              <nz-form-control><nz-input-number formControlName="min" style="width: 100%"></nz-input-number></nz-form-control>
+            </nz-form-item>
+          </div>
+          <div nz-col nzSpan="12">
+            <nz-form-item>
+              <nz-form-label>Max (Len/Val)</nz-form-label>
+              <nz-form-control><nz-input-number formControlName="max" style="width: 100%"></nz-input-number></nz-form-control>
+            </nz-form-item>
+          </div>
+        </div>
+      }
+
+      @if (!validateForm.get('isRequired')?.value) {
+        <nz-divider nzText="Default Value" nzOrientation="left"></nz-divider>
+        <nz-form-item>
+          <nz-form-control>
+            @if (validateForm.get('dataType')?.value === 'Image') {
+              <nz-radio-group [(ngModel)]="imageSource" [ngModelOptions]="{standalone: true}" style="margin-bottom: 8px; display: block;">
+                <label nz-radio nzValue="url">URL</label>
+                <label nz-radio nzValue="local">Local</label>
+              </nz-radio-group>
+              @if (imageSource === 'url') {
+                <input nz-input formControlName="defaultValue" placeholder="https://..." />
+              } @else {
+                <nz-upload [nzBeforeUpload]="handleUpload" [nzShowUploadList]="false">
+                  <button nz-button type="button"><span nz-icon nzType="upload"></span> Upload Image</button>
+                </nz-upload>
+                <div *ngIf="validateForm.get('defaultValue')?.value" style="margin-top: 8px;">
+                  <img [src]="validateForm.get('defaultValue')?.value" style="height: 50px; border: 1px solid #ddd; padding: 2px;" />
+                </div>
+              }
+            } @else if (validateForm.get('dataType')?.value === 'Boolean') {
+              <label nz-checkbox formControlName="defaultValue">Checked by default</label>
+            } @else if (validateForm.get('dataType')?.value === 'Number' || validateForm.get('dataType')?.value === 'Decimal') {
+              <nz-input-number formControlName="defaultValue" style="width: 100%"></nz-input-number>
+            } @else {
+              <input nz-input formControlName="defaultValue" placeholder="Enter default string" />
+            }
+          </nz-form-control>
+        </nz-form-item>
+      }
+    </form>
+  </ng-container>
+</nz-modal>

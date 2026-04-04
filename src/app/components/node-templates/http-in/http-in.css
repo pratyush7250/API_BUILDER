@@ -1,0 +1,39 @@
+.form-container {
+  padding: 20px;
+  max-width: 400px;
+  font-family: sans-serif;
+}
+
+.parameter-box {
+  margin-top: 15px;
+  border: 1px solid #d9d9d9;
+  border-radius: 4px;
+  padding: 12px;
+  background-color: #fff;
+}
+
+.parameter-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #f0f0f0;
+  color: #555;
+}
+
+.parameter-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.param-input {
+  flex: 1;
+}
+
+/* Ensure labels in horizontal/vertical layout look clean */
+nz-form-label {
+  font-weight: 500;
+}

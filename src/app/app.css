@@ -1,0 +1,21 @@
+.app-layout {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}
+
+.main-wrapper {
+  display: flex;
+  flex-direction: column;
+  flex: 1; /* Takes up all remaining horizontal space */
+  height: 100vh;
+  overflow: hidden;
+  background-color: #f5f7fa; /* Light background for the app body */
+}
+
+.page-content {
+  flex: 1;
+  overflow-y: auto; /* Allows page content to scroll while nav/sidebar stay fixed */
+  padding: 15px;
+}

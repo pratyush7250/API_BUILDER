@@ -1,0 +1,76 @@
+<div class="auth-container">
+    <div class="visual-section">
+        <div class="logo-container">
+            <div class="main-circle"></div>
+            <div class="reflection-blur"></div>
+        </div>
+    </div>
+
+    <div class="form-section">
+        <div class="inner-form-content">
+            <header>
+                <h1 class="title">{{ isLogin ? 'Welcome back' : 'Create an account' }}</h1>
+                <p class="subtitle">
+                    {{ isLogin ? 'Please enter your details.' : 'Join our community today.' }}
+                </p>
+            </header>
+
+            <form nz-form [formGroup]="authForm" (ngSubmit)="submitForm()" nzLayout="vertical">
+
+                <nz-form-item *ngIf="!isLogin">
+                    <nz-form-label nzRequired>Name</nz-form-label>
+                    <nz-form-control nzErrorTip="Please enter your full name">
+                        <input nz-input formName="name" formControlName="name" placeholder="Enter your name" />
+                    </nz-form-control>
+                </nz-form-item>
+
+                <nz-form-item>
+                    <nz-form-label nzRequired>Email</nz-form-label>
+                    <nz-form-control nzErrorTip="Please enter a valid email">
+                        <input nz-input formControlName="email" placeholder="Enter your email" />
+                    </nz-form-control>
+                </nz-form-item>
+
+                <nz-form-item>
+                    <nz-form-label nzRequired>Password</nz-form-label>
+                    <nz-form-control nzErrorTip="Password must be at least 6 characters">
+                        <input nz-input type="password" formControlName="password" placeholder="••••••••" />
+                    </nz-form-control>
+                </nz-form-item>
+
+                <div class="form-utilities" *ngIf="isLogin">
+                    <label nz-checkbox formControlName="remember">Remember for 30 days</label>
+                    <a class="link-text">Forgot password</a>
+                </div>
+
+                <div class="actions">
+                    <button 
+                        nz-button 
+                        nzType="primary" 
+                        nzBlock 
+                        class="main-btn" 
+                        type="submit"
+                        [disabled]="isLoading">
+
+                        <span *ngIf="isLoading" nz-icon nzType="loading" nzTheme="outline"
+                            style="margin-right: 8px;"></span>
+
+                        {{ isLogin ? 'Sign in' : 'Sign up' }}
+                    </button>
+
+                    <button nz-button nzType="default" nzBlock type="button" class="google-btn" [disabled]="isLoading">
+                        <img src="https://img.icons8.com/color/16/000000/google-logo.png" />
+                        {{ isLogin ? 'Sign in with Google' : 'Sign up with Google' }}
+                    </button>
+                </div>
+            </form>
+
+            <footer class="toggle-footer">
+                <span>{{ isLogin ? "Don't have an account?" : "Already have an account?" }}</span>
+                <button class="ghost-link" (click)="toggleMode()" [disabled]="isLoading">
+                    {{ isLogin ? 'Sign up' : 'Sign in' }}
+                </button>
+            </footer>
+        </div>
+    </div>
+</div>

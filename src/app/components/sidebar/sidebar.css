@@ -1,0 +1,91 @@
+.sidebar-container {
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: #fff;
+  border-right: 1px solid #f0f0f0;
+  width: 220px;
+  transition: width 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
+  overflow: hidden;
+}
+
+/* Collapsed Width */
+.sidebar-container.collapsed {
+  width: 80px;
+}
+
+.logo-section {
+  padding: 20px 24px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  border-bottom: 1px solid #f9f9f9;
+  white-space: nowrap;
+}
+
+.logo-img {
+  height: 32px;
+  min-width: 32px; /* Prevent shrinking */
+}
+
+.logo-text {
+  font-size: 20px;
+  font-weight: 700;
+  color: #1890ff;
+  transition: opacity 0.3s;
+}
+
+.main-menu {
+  border-right: none;
+  flex-grow: 1;
+}
+
+/* Adjusting alignment for collapsed icons */
+.collapsed .message-content, 
+.collapsed .user-profile {
+  justify-content: center;
+  padding: 16px 0;
+}
+
+.sidebar-footer {
+  border-top: 1px solid #f0f0f0;
+}
+
+.message-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 24px;
+  cursor: pointer;
+  height: 50px;
+}
+
+.user-profile {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 24px;
+  height: 80px;
+}
+.user-info .user-name{
+    font-size: 14px;
+    font-weight: 600;
+}
+.user-info .user-email{
+    font-size: 12px;
+    color: #595959;
+}
+.collapse-trigger {
+  padding: 12px;
+  border-top: 1px solid #f0f0f0;
+  cursor: pointer;
+  color: #595959;
+  font-size: 18px;
+}
+
+/* Global deep overrides for NG-ZORRO items */
+:host ::ng-deep .ant-menu-item {
+  height: 50px !important;
+  line-height: 50px !important;
+  margin: 4px 0 !important;
+}

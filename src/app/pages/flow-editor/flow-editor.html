@@ -11,7 +11,7 @@
             <nz-splitter-panel>
                 <!-- Header -->
                 <div class="flows-header">
-                    <div class="flows-title">Flows</div>
+                    <div class="flows-title">APIS</div>
 
                     <div class="flows-actions">
                         <nz-icon nzType="plus" nzTheme="outline" class="header-icon"
@@ -23,7 +23,7 @@
 
                 <!-- Search Bar -->
                 <div class="flows-search">
-                    <input nz-input placeholder="Search flows..." />
+                    <input nz-input placeholder="Search APIs..." />
                 </div>
 
                 <div class="saved-flow" [ngClass]="{'active-flow': currentEditingFlow?.flowId === flow.flowId}"
@@ -41,13 +41,17 @@
                     <nz-collapse-panel [nzHeader]="panel.name" [nzActive]="panel.active">
                         <div class="nodes">
                             <div *ngFor="let node of panel.nodes"
-                                [ngClass]="{'library-node': true,'input-node': node.type === 'input','output-node': node.type === 'output','processing-node':node.type==='processing','model-node':node.type==='model'}"
+                                [ngClass]="{'library-node': true,'http-in-node':node.type==='HTTP-IN','http-response-node':node.type==='HTTP-RESPONSE','doc-node':node.type==='DOC','controller-node':node.type==='CONTROLLER','switch-node':node.type==='SWITCH','filter-node':node.type==='FILTER','config-node':node.type==='CONFIG','middleware-node':node.type==='MIDDLEWARE'}"
                                 draggable="true" (dragstart)="onDragStart($event, node)">
-                                <span *ngIf="node.type === 'input'" class="endpoint right"></span>
-                                <span *ngIf="node.type === 'output'" class="endpoint left"></span>
-                                <span *ngIf="node.type === 'processing'|| node.type === 'model'"
+                                <span
+                                    *ngIf="node.type === 'HTTP-IN' "
+                                    class="endpoint right"></span>
+                                <span *ngIf="node.type === 'HTTP-RESPONSE'" class="endpoint left"></span>
+                                <span
+                                    *ngIf="node.type === 'CONTROLLER' || node.type === 'SWITCH' || node.type === 'FILTER' || node.type === 'CONFIG' || node.type === 'MIDDLEWARE'"
                                     class="endpoint left"></span>
-                                <span *ngIf="node.type === 'processing' || node.type === 'model'"
+                                <span
+                                    *ngIf="node.type === 'CONTROLLER' || node.type === 'SWITCH' || node.type === 'FILTER' || node.type === 'CONFIG' || node.type === 'MIDDLEWARE'"
                                     class="endpoint right"></span>
                                 {{ node.name }}
                             </div>
@@ -74,13 +78,7 @@
 
                 <div class="top-bar">
                     <nz-breadcrumb>
-                        <nz-breadcrumb-item>
-                            <nz-select [ngModel]="block.name" (ngModelChange)="onVersionChange($event)"
-                                placeholder="Select Block">
-                                <nz-option *ngFor="let block of blocks" [nzLabel]="block.label" [nzValue]="block.value">
-                                </nz-option>
-                            </nz-select>
-                        </nz-breadcrumb-item>
+
 
                         <nz-breadcrumb-item *ngIf="currentEditingFlow">{{ currentEditingFlow.name
                             }}</nz-breadcrumb-item>
@@ -94,7 +92,7 @@
 
                         <div class="icons">
                             <div class="screen-mode" nz-tooltip nzTooltipTitle="Maximize">
-                                <nz-icon  nzType="fullscreen" nzTheme="outline" />
+                                <nz-icon nzType="fullscreen" nzTheme="outline" />
 
                             </div>
                             <div class="screen-mode" nz-tooltip nzTooltipTitle="Go to Flow Editor">
@@ -106,10 +104,17 @@
 
                 <div #container class="canvas">
                     <div *ngFor="let node of flowNodes" [id]="node.id" [ngClass]="{
-     'input-instance-node': node.type === 'input',
-     'output-instance-node': node.type === 'output',
      'processing-instance-node': node.type === 'processing',
-     'model-instance-node': node.type === 'model'
+     'model-instance-node': node.type === 'model',
+     'http-in-instance-node':node.type === 'HTTP-IN',
+     'http-response-instance-node':node.type === 'HTTP-RESPONSE',
+     'doc-instance-node':node.type === 'DOC',
+     'controller-instance-node':node.type === 'CONTROLLER',
+     'switch-instance-node':node.type === 'SWITCH',
+     'filter-instance-node':node.type === 'FILTER',
+    'config-instance-node':node.type === 'CONFIG',
+    'middleware-instance-node':node.type === 'MIDDLEWARE'
+
   }" [style.left.px]="node.position.x" [style.top.px]="node.position.y" (dblclick)="open(node)"
                         (contextmenu)="openContextMenu($event, node)">
                         {{ node.name }}

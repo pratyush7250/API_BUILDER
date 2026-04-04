@@ -1,0 +1,50 @@
+<div class="form-container">
+    <form nz-form [formGroup]="validateForm" nzLayout="vertical">
+
+        <nz-form-item>
+            <nz-form-label>Method</nz-form-label>
+            <nz-form-control>
+                <nz-select formControlName="method">
+                    <nz-option nzValue="GET" nzLabel="GET"></nz-option>
+                    <nz-option nzValue="POST" nzLabel="POST"></nz-option>
+                    <nz-option nzValue="PUT" nzLabel="PUT"></nz-option>
+                    <nz-option nzValue="PATCH" nzLabel="PATCH"></nz-option>
+                    <nz-option nzValue="DELETE" nzLabel="DELETE"></nz-option>
+                </nz-select>
+            </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+            <nz-form-label>Route</nz-form-label>
+            <nz-form-control>
+                <input nz-input formControlName="route" placeholder="/api" />
+            </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+            <nz-form-control>
+                <nz-radio-group formControlName="requestType">
+                    <label nz-radio nzValue="params">req.params</label>
+                    <label nz-radio nzValue="body">req.body</label>
+                </nz-radio-group>
+            </nz-form-control>
+        </nz-form-item>
+
+        <div *ngIf="showParams" class="parameter-box">
+            <div class="parameter-header">
+                <span>Parameters</span>
+                <button nz-button nzType="default" nzSize="small" (click)="addParameter()" type="button">
+                    <span nz-icon nzType="plus"></span>
+                </button>
+            </div>
+
+            <div formArrayName="parameters">
+                <div *ngFor="let item of parameters.controls; let i=index" [formGroupName]="i" class="parameter-row">
+                    <label nz-checkbox formControlName="checked"></label>
+                    <input nz-input formControlName="key" placeholder="example" class="param-input" />
+                </div>
+            </div>
+        </div>
+
+    </form>
+</div>

@@ -116,31 +116,26 @@ export class FlowEditor implements AfterViewInit, OnInit {
       active: true,
       name: 'Common',
       nodes: [
-        { id: 'input', name: 'Inject', type: "input", schema: [], position: { x: 0, y: 0 }, source: true, target: false },
-        { id: 'output', name: 'Debug', type: "output", schema: [], position: { x: 0, y: 0 }, source: false, target: true }
+        { id: '75974394559', name: 'Doc', type: "DOC", position: { x: 0, y: 0 }, source: false, target: false }
       ],
     },
     {
-      active: false,
-      name: 'HTTP Methods',
+      active: true,
+      name: 'Network',
       nodes: [
-        { id: '75974394556', name: 'GET', type: "processing", position: { x: 0, y: 0 }, source: true, target: true },
-        { id: '58769857567', name: 'POST', type: "processing", position: { x: 0, y: 0 }, source: true, target: true },
-        { id: '58769857527', name: 'DELETE', type: "model", position: { x: 0, y: 0 }, source: true, target: true },
-        { id: '58769857517', name: 'PUT', type: "processing", position: { x: 0, y: 0 }, source: true, target: true },
-        { id: '58769857518', name: 'PATCH', type: "processing", position: { x: 0, y: 0 }, source: true, target: true },
-
-
+        { id: '58769857567', name: 'HTTP In', type: "HTTP-IN", position: { x: 0, y: 0 }, source: true, target: false },
+        { id: '58769857518', name: 'HTTP Response', type: "HTTP-RESPONSE", position: { x: 0, y: 0 }, source: false, target: true },
       ]
     },
     {
-      active: false,
+      active: true,
       name: 'Function',
       nodes: [
-        { id: '75974394556', name: 'Switch', type: "model", position: { x: 0, y: 0 }, source: true, target: true },
-        { id: '58769857567', name: 'Function', type: "model", position: { x: 0, y: 0 }, source: true, target: true },
-        { id: '58769857568', name: 'Filter', type: "model", position: { x: 0, y: 0 }, source: true, target: true },
-        { id: '58769857569', name: 'Change', type: "model", position: { x: 0, y: 0 }, source: true, target: true },
+        { id: '75974394556', name: 'Controller', type: "CONTROLLER", position: { x: 0, y: 0 }, source: true, target: true },
+        { id: '58769857511', name: 'Config', type: "CONFIG", position: { x: 0, y: 0 }, source: true, target: true },
+        { id: '58769857522', name: 'Middleware', type: "MIDDLEWARE", position: { x: 0, y: 0 }, source: true, target: true },
+        { id: '58769857567', name: 'Switch', type: "SWITCH", position: { x: 0, y: 0 }, source: true, target: true },
+        { id: '58769857568', name: 'Filter', type: "FILTER", position: { x: 0, y: 0 }, source: true, target: true },
 
       ]
     }
@@ -150,8 +145,8 @@ export class FlowEditor implements AfterViewInit, OnInit {
 
   saveFlows: SavedFlow[] = [
 
-    { "flowId": "flow-1771933423464", "name": "Product", "description": "", "systemId": "69956cf2e5d337971f524332", "nodes": [{ "id": "input-1772091727033", "name": "Input", "type": "input", "schema": [], "position": { "x": 105, "y": 156 }, "source": true, "target": false }, { "id": "output-1772091729043", "name": "Output", "type": "output", "schema": [], "position": { "x": 567, "y": 104 }, "source": false, "target": true }, { "id": "75974394556-1772091733704", "name": "Filter", "type": "processing", "position": { "x": 280, "y": 338 }, "source": true, "target": true }, { "id": "75974394556-1772092438021", "name": "CNN", "type": "model", "position": { "x": 341, "y": 152 }, "source": true, "target": true }], "connections": [{ "sourceId": "input-1772091727033", "targetId": "75974394556-1772091733704" }, { "sourceId": "75974394556-1772091733704", "targetId": "75974394556-1772092438021" }, { "sourceId": "75974394556-1772092438021", "targetId": "output-1772091729043" }] },
-    { "flowId": "flow-1772092497052", "name": "User", "description": "", "systemId": "69956cf2e5d337971f524332", "nodes": [{ "id": "input-1772092529884", "name": "Input", "type": "input", "schema": [], "position": { "x": 84, "y": 117 }, "source": true, "target": false }, { "id": "58769857567-1772092534405", "name": "Function", "type": "processing", "position": { "x": 319, "y": 190 }, "source": true, "target": true }, { "id": "75974394556-1772092542543", "name": "Filter", "type": "processing", "position": { "x": 243, "y": 78 }, "source": true, "target": true }, { "id": "58769857567-1772092554966", "name": "RNN", "type": "model", "position": { "x": 489, "y": 111 }, "source": true, "target": true }, { "id": "output-1772092579455", "name": "Output", "type": "output", "schema": [], "position": { "x": 712, "y": 133 }, "source": false, "target": true }], "connections": [{ "sourceId": "input-1772092529884", "targetId": "75974394556-1772092542543" }, { "sourceId": "75974394556-1772092542543", "targetId": "58769857567-1772092534405" }, { "sourceId": "58769857567-1772092534405", "targetId": "58769857567-1772092554966" }, { "sourceId": "58769857567-1772092554966", "targetId": "output-1772092579455" }] }
+    { "flowId": "flow-1771933423464", "name": "Product", "description": "", "systemId": "69956cf2e5d337971f524332", "nodes": [{ "id": "input-1772091727033", "name": "HTTP in", "type": "HTTP-IN", "schema": [], "position": { "x": 105, "y": 156 }, "source": true, "target": false }, { "id": "output-1772091729043", "name": "HTTP Response", "type": "HTTP-RESPONSE", "schema": [], "position": { "x": 567, "y": 104 }, "source": false, "target": true }, { "id": "75974394556-1772091733704", "name": "Filter", "type": "FILTER", "position": { "x": 280, "y": 338 }, "source": true, "target": true }, { "id": "75974394556-1772092438021", "name": "Switch", "type": "SWITCH", "position": { "x": 341, "y": 152 }, "source": true, "target": true }], "connections": [{ "sourceId": "input-1772091727033", "targetId": "75974394556-1772091733704" }, { "sourceId": "75974394556-1772091733704", "targetId": "75974394556-1772092438021" }, { "sourceId": "75974394556-1772092438021", "targetId": "output-1772091729043" }] },
+    { "flowId": "flow-1772092497052", "name": "User", "description": "", "systemId": "69956cf2e5d337971f524332", "nodes": [{ "id": "input-1772092529884", "name": "HTTP in", "type": "HTTP-IN", "schema": [], "position": { "x": 84, "y": 117 }, "source": true, "target": false }, { "id": "58769857567-1772092534405", "name": "Controller", "type": "CONTROLLER", "position": { "x": 319, "y": 190 }, "source": true, "target": true }, { "id": "75974394556-1772092542543", "name": "Filter", "type": "FILTER", "position": { "x": 243, "y": 78 }, "source": true, "target": true }, { "id": "58769857567-1772092554966", "name": "Switch", "type": "SWITCH", "position": { "x": 489, "y": 111 }, "source": true, "target": true }, { "id": "output-1772092579455", "name": "HTTP Response", "type": "HTTP-RESPONSE", "schema": [], "position": { "x": 712, "y": 133 }, "source": false, "target": true }], "connections": [{ "sourceId": "input-1772092529884", "targetId": "75974394556-1772092542543" }, { "sourceId": "75974394556-1772092542543", "targetId": "58769857567-1772092534405" }, { "sourceId": "58769857567-1772092534405", "targetId": "58769857567-1772092554966" }, { "sourceId": "58769857567-1772092554966", "targetId": "output-1772092579455" }] }
   ]
 
   // logs data
@@ -288,7 +283,11 @@ export class FlowEditor implements AfterViewInit, OnInit {
   }
 
   open(node: NodeModel) {
+    this.selectedNode = null; // Reset to trigger the setter if the same node is clicked
+    this.cdr.detectChanges();
+
     this.selectedNode = node;
+    this.cdr.detectChanges();
   }
 
   //====================CONTEXT MENU METHODS===================//

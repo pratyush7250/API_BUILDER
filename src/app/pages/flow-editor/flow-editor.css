@@ -20,17 +20,6 @@
 
 /* ============LEFT PANEL STYLE============== */
 
-.left-panel {
-    border-right: 1px solid #ddd;
-    width: 280px;
-    background: #fafafa;
-    padding: 10px;
-    height: 100vh;
-    overflow-y: auto;
-    overflow-x: hidden;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-}
 
 .left-panel::-webkit-scrollbar {
     display: none;
@@ -53,7 +42,7 @@
 
 .left-panel {
     border-right: 1px solid #ddd;
-    width: 250px;
+    width: 230px;
     background: #fafafa;
     padding: 10px;
     height: 100vh;
@@ -127,6 +116,50 @@
 
 .model-node {
     background: #fa3858;
+}
+
+/*====== all left panel nodes ====== */
+
+/* http-methods-nodes */
+
+.http-in-node {
+    background: #2A64A0;
+    color: white
+}
+
+.http-response-node {
+    background: #6F368A;
+    color: white
+}
+
+
+/* common-nodes */
+
+.doc-node {
+    background: #C1B8B8;
+    color: rgb(0, 0, 0)
+}
+
+/* functional nodes */
+.controller-node{
+    background: #FDD0A2;
+    color: rgb(0, 0, 0)
+}
+.switch-node{
+    background: #E2D96E;
+    color: rgb(0, 0, 0)
+}
+.filter-node{
+    background: #E2D96E;
+    color: rgb(0, 0, 0)
+}
+.config-node{
+    background: #C0DEED;
+    color: rgb(0, 0, 0)
+}
+.middleware-node{
+    background: #000000;
+    color: rgb(255, 255, 255)
 }
 
 .endpoint {
@@ -388,11 +421,17 @@
     text-align: center;
 }
 
-.processing-instance-node {
+
+/*======= center instace nodes ======== */
+
+/* http-method-insctance-node */
+
+.http-in-instance-node {
     position: absolute;
     padding: 5px;
     font-size: 15px;
-    background: #b38338;
+    background: #2A64A0;
+    color: white;
     border: 1px solid #ccc;
     border-radius: 8px;
     cursor: move;
@@ -400,11 +439,12 @@
     text-align: center;
 }
 
-.model-instance-node {
+.http-response-instance-node {
     position: absolute;
     padding: 5px;
     font-size: 15px;
-    background: #fa3858;
+    background: #6F368A;
+    color: white;
     border: 1px solid #ccc;
     border-radius: 8px;
     cursor: move;
@@ -412,6 +452,84 @@
     text-align: center;
 }
 
+
+
+/* common-instance-node  */
+.doc-instance-node {
+    position: absolute;
+    padding: 5px;
+    font-size: 15px;
+    background: #C1B8B8;
+    color: rgb(0, 0, 0);
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    cursor: move;
+    min-width: 130px;
+    text-align: center;
+}
+
+/* functional nodes */
+.controller-instance-node{
+    position: absolute;
+    padding: 5px;
+    font-size: 15px;
+    background: #FDD0A2;
+    color: rgb(0, 0, 0);
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    cursor: move;
+    min-width: 130px;
+    text-align: center;
+}
+.switch-instance-node{
+    position: absolute;
+    padding: 5px;
+    font-size: 15px;
+    background: #E2D96E;
+    color: rgb(0, 0, 0);
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    cursor: move;
+    min-width: 130px;
+    text-align: center;
+}
+.filter-instance-node{
+    position: absolute;
+    padding: 5px;
+    font-size: 15px;
+    background: #E2D96E;
+    color: rgb(0, 0, 0);
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    cursor: move;
+    min-width: 130px;
+    text-align: center;
+}
+
+.config-instance-node{
+    position: absolute;
+    padding: 5px;
+    font-size: 15px;
+    background: #C0DEED;
+    color: rgb(0, 0, 0);
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    cursor: move;
+    min-width: 130px;
+    text-align: center;
+}
+.middleware-instance-node{
+    position: absolute;
+    padding: 5px;
+    font-size: 15px;
+    background: #000000;
+    color: rgb(255, 255, 255);
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    cursor: move;
+    min-width: 130px;
+    text-align: center;
+}
 
 /* ===== Context Menu ===== */
 
@@ -456,23 +574,4 @@
         opacity: 1;
         transform: scale(1);
     }
-}
-
-
-/* ============RIGHT PANNEL STYLE=========== */
-
-.right-panel {
-    width: 280px;
-    background: #fafafa;
-    padding: 10px;
-    border-left: 1px solid #ddd;
-    height: 100vh;
-    overflow-y: auto;
-    overflow-x: hidden;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
-}
-
-.right-panel::-webkit-scrollbar {
-    display: none;
 }
