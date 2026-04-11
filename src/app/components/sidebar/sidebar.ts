@@ -1,17 +1,17 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router, RouterModule } from '@angular/router';
 import { NzMenuModule } from 'ng-zorro-antd/menu';
 import { NzIconModule } from 'ng-zorro-antd/icon';
 import { NzAvatarModule } from 'ng-zorro-antd/avatar';
 import { NzBadgeModule } from 'ng-zorro-antd/badge';
-import { Input, Output, EventEmitter } from '@angular/core';
-import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-sidebar',
   standalone: true,
   imports: [
     CommonModule,
+    RouterModule, // Required for router-outlet
     NzMenuModule,
     NzIconModule,
     NzAvatarModule,
@@ -21,24 +21,23 @@ import { Router } from '@angular/router';
   styleUrls: ['./sidebar.css']
 })
 export class Sidebar {
-  @Input() isCollapsed = false;
-  @Output() collapsedChange = new EventEmitter<boolean>();
+  isCollapsed = false;
+
   constructor(private router: Router) { }
 
   toggleCollapsed(): void {
     this.isCollapsed = !this.isCollapsed;
-    this.collapsedChange.emit(this.isCollapsed);
   }
 
   handelOnDb() {
-    this.router.navigate(['/dashboard']);
-
+    this.router.navigate(['/dashboard/database']);
   }
+
   handleOnApi() {
-    this.router.navigate(['/api']);
-
+    this.router.navigate(['/dashboard/api']);
   }
+
   handleOnTestApi() {
-    this.router.navigate(['/test']);
+    this.router.navigate(['/dashboard/test']);
   }
 }

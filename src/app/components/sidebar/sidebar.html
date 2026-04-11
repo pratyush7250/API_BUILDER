@@ -1,36 +1,61 @@
-<div class="sidebar-container" [class.collapsed]="isCollapsed">
-  <div class="logo-section">
-    <img src="https://img.freepik.com/free-vector/bird-colorful-gradient-design-vector_343694-2506.jpg?semt=ais_hybrid&w=740&q=80" alt="Waves Logo" class="logo-img" />
-    <span class="logo-text" *ngIf="!isCollapsed">API-BUILDER</span>
-  </div>
+<div class="app-layout">
+  <div class="sidebar-container" [class.collapsed]="isCollapsed">
+    <div class="logo-section">
+      <img src="https://img.freepik.com/free-vector/bird-colorful-gradient-design-vector_343694-2506.jpg?semt=ais_hybrid&w=740&q=80" alt="Logo" class="logo-img" />
+      <span class="logo-text" *ngIf="!isCollapsed">API-BUILDER</span>
+    </div>
 
-  <ul nz-menu nzMode="inline" [nzInlineCollapsed]="isCollapsed" class="main-menu">
-    <li nz-menu-item nzSelected  (click)="handelOnDb()">
-      <span nz-icon nzType="database"></span>
-      <span>Database</span>
-    </li>
-    <li nz-menu-item (click)="handleOnApi()">
-      <span nz-icon nzType="partition"></span>
-      <span>API</span>
-    </li>
-    <li nz-menu-item (click)="handleOnTestApi()">
-      <span nz-icon nzType="tool"></span>
-      <span>Test API</span>
-    </li>
-  </ul>
+    <ul nz-menu nzMode="inline" [nzInlineCollapsed]="isCollapsed" class="main-menu">
+      <li nz-menu-item nzSelected (click)="handelOnDb()">
+        <span nz-icon nzType="database"></span>
+        <span>Database</span>
+      </li>
+      <li nz-menu-item (click)="handleOnApi()">
+        <span nz-icon nzType="partition"></span>
+        <span>API</span>
+      </li>
+      <li nz-menu-item (click)="handleOnTestApi()">
+        <span nz-icon nzType="tool"></span>
+        <span>Test API</span>
+      </li>
+    </ul>
 
-  <div class="sidebar-footer">
-   
-    <div class="user-profile">
-      <nz-avatar nzSize="large" nzSrc="https://img.freepik.com/free-photo/portrait-white-man-isolated_53876-40306.jpg?semt=ais_incoming&w=740&q=80"></nz-avatar>
-      <div class="user-info" *ngIf="!isCollapsed">
-        <div class="user-name">Pratyush Mohanty</div>
-        <div class="user-email">pratyush@gmail.com</div>
+    <div class="sidebar-footer">
+      <div class="user-profile">
+        <nz-avatar nzSize="large" nzSrc="https://img.freepik.com/free-photo/portrait-white-man-isolated_53876-40306.jpg?semt=ais_incoming&w=740&q=80"></nz-avatar>
+        <div class="user-info" *ngIf="!isCollapsed">
+          <div class="user-name">Pratyush Mohanty</div>
+          <div class="user-email">pratyush@gmail.com</div>
+        </div>
+      </div>
+
+      <div class="collapse-trigger" (click)="toggleCollapsed()">
+        <span nz-icon [nzType]="isCollapsed ? 'menu-unfold' : 'menu-fold'"></span>
       </div>
     </div>
+  </div>
 
-    <div class="collapse-trigger" (click)="toggleCollapsed()">
-      <span nz-icon [nzType]="isCollapsed ? 'menu-fold' : 'menu-unfold'"></span>
-    </div>
+  <div class="main-layout">
+    <header class="navbar-container">
+      <div class="navbar-actions">
+        <div class="action-item">
+          <nz-badge [nzCount]="9" [nzOffset]="[2, 2]" class="red-badge">
+            <span nz-icon nzType="message" nzTheme="outline" class="nav-icon"></span>
+          </nz-badge>
+        </div>
+        <div class="action-item">
+          <nz-badge [nzCount]="9" [nzOffset]="[2, 2]" class="red-badge">
+            <span nz-icon nzType="bell" nzTheme="outline" class="nav-icon"></span>
+          </nz-badge>
+        </div>
+        <div class="action-item">
+          <nz-avatar nzSize="large" nzText="PM" class="user-avatar"></nz-avatar>
+        </div>
+      </div>
+    </header>
+
+    <main class="content-body">
+      <router-outlet></router-outlet>
+    </main>
   </div>
 </div>

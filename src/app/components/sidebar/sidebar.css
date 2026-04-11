@@ -1,38 +1,44 @@
+.app-layout {
+  display: flex;
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+}
+
+/* Sidebar Styling */
 .sidebar-container {
   height: 100vh;
   display: flex;
   flex-direction: column;
   background: #fff;
   border-right: 1px solid #f0f0f0;
-  width: 220px;
+  width: 240px;
   transition: width 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
-  overflow: hidden;
+  flex-shrink: 0;
 }
 
-/* Collapsed Width */
 .sidebar-container.collapsed {
   width: 80px;
 }
 
 .logo-section {
-  padding: 20px 24px;
+  padding: 16px 24px;
   display: flex;
   align-items: center;
   gap: 12px;
+  height: 64px;
   border-bottom: 1px solid #f9f9f9;
-  white-space: nowrap;
 }
 
 .logo-img {
   height: 32px;
-  min-width: 32px; /* Prevent shrinking */
+  min-width: 32px;
 }
 
 .logo-text {
-  font-size: 20px;
+  font-size: 18px;
   font-weight: 700;
   color: #1890ff;
-  transition: opacity 0.3s;
 }
 
 .main-menu {
@@ -40,24 +46,8 @@
   flex-grow: 1;
 }
 
-/* Adjusting alignment for collapsed icons */
-.collapsed .message-content, 
-.collapsed .user-profile {
-  justify-content: center;
-  padding: 16px 0;
-}
-
 .sidebar-footer {
   border-top: 1px solid #f0f0f0;
-}
-
-.message-item {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 12px 24px;
-  cursor: pointer;
-  height: 50px;
 }
 
 .user-profile {
@@ -66,26 +56,91 @@
   gap: 12px;
   padding: 16px 24px;
   height: 80px;
+  overflow: hidden;
 }
-.user-info .user-name{
-    font-size: 14px;
-    font-weight: 600;
+
+.user-info .user-name {
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
 }
-.user-info .user-email{
-    font-size: 12px;
-    color: #595959;
+
+.user-info .user-email {
+  font-size: 12px;
+  color: #595959;
+  white-space: nowrap;
 }
+
 .collapse-trigger {
-  padding: 12px;
+  padding: 12px 24px;
   border-top: 1px solid #f0f0f0;
   cursor: pointer;
   color: #595959;
   font-size: 18px;
+  text-align: left;
 }
 
-/* Global deep overrides for NG-ZORRO items */
+.collapsed .collapse-trigger {
+    text-align: center;
+    padding: 12px 0;
+}
+
+/* Main Content Area Styling */
+.main-layout {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  background: #f5f7fa; /* Light grey background for content */
+  overflow: hidden;
+}
+
+.navbar-container {
+  height: 64px;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding: 0 24px;
+  border-bottom: 1px solid #f0f0f0;
+  width: 100%;
+}
+
+.navbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+
+.action-item {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+}
+
+.nav-icon {
+  font-size: 20px;
+  color: #595959;
+}
+
+.content-body {
+  padding: 24px;
+  flex-grow: 1;
+  overflow-y: auto;
+}
+
+/* Global deep overrides for NG-ZORRO */
 :host ::ng-deep .ant-menu-item {
   height: 50px !important;
   line-height: 50px !important;
-  margin: 4px 0 !important;
+}
+
+:host ::ng-deep .red-badge .ant-scroll-number {
+  background: #ff4d4f;
+  box-shadow: 0 0 0 1px #fff;
+}
+
+.user-avatar {
+  background-color: #bae7ff;
+  color: #0050b3;
+  font-weight: 500;
 }
